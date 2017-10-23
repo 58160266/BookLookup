@@ -8,9 +8,9 @@ function BookLookup(AmazonService){
   this.search = (isbn) => {
     var obj = this.service(isbn)
     return {
-      title : obj.bookName,
-      image : obj.cover,
-      isbn : obj.isbn
+      bookName : obj.title ,
+      cover : obj.image ,
+      isbn : isbn
     }
   }
 
@@ -19,8 +19,8 @@ function BookLookup(AmazonService){
 test('BookLookup Mock',()=>{
   const AmazonServiceMock = jest.fn()
           .mockReturnValue({
-            bookName : 'basic node',
-            cover : ' : D ',
+            title : 'basic node',
+            image : ' : D ',
             isbn : 'isbn5555'
           })
   var book = new BookLookup(AmazonServiceMock)
@@ -30,7 +30,7 @@ test('BookLookup Mock',()=>{
   expect(AmazonServiceMock).toHaveBeenCalled()
   expect(AmazonServiceMock).toHaveBeenCalledWith(isbn)
   //expect(result).toBe('12345679')
-  expect(bookInfo.title).toBe('basic node')
+  expect(bookInfo.bookName).toBe('basic node')
   expect(bookInfo).toHaveProperty('isbn')
   expect(bookInfo.isbn).toHaveLength(8)
 
